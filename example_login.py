@@ -18,6 +18,30 @@
 
 import pen, pen_auth
 
+"""
+The following is used for secure password storage.  Uncomment to use.
+
+keyring should work on modern OS.  Only tested on MAC 13.  Visit the following to make it work in your OS
+https://pypi.org/project/keyring/
+
+Must run init program first.
+
+import keyring
+
+creds =  (keyring.get_credential("pensando", "admin"))
+
+with open('pypen_init_data.json') as json_file:
+    jdata = json.load(json_file)
+    PSM_IP = jdata["ip"]
+    PSM_TENANT = jdata["tenant"]
+    PSM_USERNAME = creds.username
+    PSM_PASSWD = creds.password
+#end secure environment vars
+"""
+
+#static PSM vars.  Uncomment to use
+
+
 #input PSM Creds
 PSM_IP = 'https://10.9.9.9'
 username = 'admin'
