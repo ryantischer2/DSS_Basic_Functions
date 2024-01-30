@@ -16,7 +16,7 @@
 
 
 
-import pen, pen_auth
+import pen, pen_auth, json
 
 """
 The following is used for secure password storage.  Uncomment to use.
@@ -71,5 +71,13 @@ NSP = pen.get_networksecuritypolicy(PSM_IP, session)
 
 #parse json response
 
+policyID = []
+
 for i in range(len(NSP['items'])):
     print (NSP['items'][i]['meta']['display-name'])
+    policyID.append(NSP['items'][i]['meta']['name'])
+
+#psm policy is reference by a uuid name.  In this case stored in a list called policyID
+singlePolicy = pen.get_Specificpolicy(PSM_IP, session, policyID[1])
+
+print (json.dumps(singlePolicy, indent=2))

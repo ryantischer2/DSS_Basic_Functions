@@ -93,6 +93,10 @@ def get_networksecuritypolicy(psm_ip, session,):
     url = psm_ip + '/configs/security/v1/networksecuritypolicies'
     return get_web_call(url, session).json()
 
+def get_Specificpolicy(psm_ip, session, policyName):
+    url = psm_ip + '/configs/security/v1/networksecuritypolicies/' + policyName
+    return get_web_call(url, session).json()
+
 def get_users(psm_ip, session, tenant):
     url = psm_ip + '/configs/auth/v1/tenant/{t}/users'.format(t=tenant)
     return get_web_call(url, session).json()
