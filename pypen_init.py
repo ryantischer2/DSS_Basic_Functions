@@ -26,21 +26,20 @@ print ("---------------------------------------------------------")
 psm_temp_ip = input("Enter PSM IP address, for example 10.29.75.21: = ")
 psm_ip = f"https://{psm_temp_ip}/"
 
-psm_tenant = input("Enter PSM tenant, for example default:  ")
 psm_admin = input("Enter PSM admin account: ")
 print ("---------------------------------------------------------")
 print ("")
 print ("Data Entered is ")
 print (f"IP address = {psm_ip}")
-print (f"Tenant = {psm_tenant}")
 print (f"Username = {psm_admin}")
 print ("password is a secert")
 print ("---------------------------------------------------------")
 
 if input("Is this correct y/n: " ) == "y" or "Y" or "yes" or "Yes":
     keyring.set_password('pensando', psm_admin, getpass.getpass("Enter PSM Password: "))
-    data = {"ip":psm_ip, "tenant":psm_tenant}
+    data = {"ip":psm_ip, "tenant":'default'}
     with open('pypen_init_data.json', 'w') as outfile:
         json.dump(data, outfile)
+    print ("Success!")
 else:
     exit()
