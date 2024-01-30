@@ -24,7 +24,7 @@ print ("This init program securly stores Pensando PSM connection details in OS k
 print ("tenant and PSM IP address are stored in clear text")
 print ("---------------------------------------------------------")
 psm_temp_ip = input("Enter PSM IP address, for example 10.29.75.21: = ")
-psm_ip = f"https://{psm_temp_ip}/"
+psm_ip = f"https://{psm_temp_ip}"
 
 psm_admin = input("Enter PSM admin account: ")
 print ("---------------------------------------------------------")
@@ -37,7 +37,7 @@ print ("---------------------------------------------------------")
 
 if input("Is this correct y/n: " ) == "y" or "Y" or "yes" or "Yes":
     keyring.set_password('pensando', psm_admin, getpass.getpass("Enter PSM Password: "))
-    data = {"ip":psm_ip, "tenant":'default'}
+    data = {"ip":psm_ip, "user":psm_admin, "tenant":'default'}
     with open('pypen_init_data.json', 'w') as outfile:
         json.dump(data, outfile)
     print ("Success!")

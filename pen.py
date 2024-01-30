@@ -16,6 +16,7 @@
 # Note Some of are untested with DSS PSM
 
 import json
+import requests
 
 def get_web_call(url, session, *payload):
 
@@ -23,21 +24,34 @@ def get_web_call(url, session, *payload):
         data = {}
     else:
         data = payload[0]
+
     try:
         api_ref = session.get(url, data=json.dumps(data))
 
+    except requests.exceptions.HTTPError as e:
+        print(f"HTTP Error: {e}")
+        return None
+
+    except requests.exceptions.ConnectionError as e:
+        print(f"Connection Error: {e}")
+        return None
+
     except requests.exceptions.Timeout:
         print('Network Timeout')
+        return None
 
     except requests.exceptions.TooManyRedirects:
-        print('too Many Redirects')
+        print('Too Many Redirects')
+        return None
 
-    except requests.exceptions.RequestException as err:
-        print('Something went wrong')
+    except requests.exceptions.RequestException as e:
+        print(f"Request Exception: {e}")
+        return None
 
-        raise SystemExit(err)
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+        return None
 
-    print (api_ref)
     return api_ref
 
 def post_web_call(url, session, data):
@@ -45,41 +59,71 @@ def post_web_call(url, session, data):
     try:
         api_ref = session.post(url, data)
 
+    except requests.exceptions.HTTPError as e:
+        print(f"HTTP Error: {e}")
+        return None
+
+    except requests.exceptions.ConnectionError as e:
+        print(f"Connection Error: {e}")
+        return None
+
     except requests.exceptions.Timeout:
         print('Network Timeout')
+        return None
 
     except requests.exceptions.TooManyRedirects:
-        print('too Many Redirects')
+        print('Too Many Redirects')
+        return None
 
-    except requests.exceptions.RequestException as err:
-        print('Something went wrong')
+    except requests.exceptions.RequestException as e:
+        print(f"Request Exception: {e}")
+        return None
 
-        raise SystemExit(err)
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+        return None
 
     return api_ref
 
+def get_networks(psm_ip, session, pretty=False):
+    url = psm_ip + '/configs/network/v1/tenant/default/networks'
 
-def get_psm_workloads(psm_ip, session):
+    if pretty:
+        return makePretty(get_web_call(url, session).json())
+    else:
+        return get_web_call(url, session).json()
 
-    url = psm_ip + 'configs/workload/v1/workloads'
-    return get_web_call(url, session).json()
+def get_psm_workloads(psm_ip, session, pretty=False):
 
-def get_psm_cluster(psm_ip, session):
+    url = psm_ip + '/configs/workload/v1/workloads'
 
-    url = psm_ip +'configs/cluster/v1/cluster'
-    return get_web_call(url, session).json()
+    if pretty:
+        return makePretty(get_web_call(url, session).json())
+    else:    
+        return get_web_call(url, session).json()
+
+def get_psm_cluster(psm_ip, session, pretty=False):
+    url = psm_ip +'/configs/cluster/v1/cluster'
+
+    if pretty:
+        return makePretty(get_web_call(url, session).json())
+    else:
+        return get_web_call(url, session).json()
 
 def get_flow_export_policy(psm_ip, session):
 
-    url = psm_ip + 'configs/monitoring/v1/flowExportPolicy'
+    url = psm_ip + '/configs/monitoring/v1/flowExportPolicy'
     return get_web_call(url, session).json()
 
-def get_dss(psm_ip, session):
-
+def get_dss(psm_ip, session, pretty=False):
     url = psm_ip + '/configs/cluster/v1/distributedserviceentities'
-    dsc = get_web_call(url, session).json()
 
-    return dsc
+    if pretty:
+        return makePretty(get_web_call(url, session).json())
+    
+    else:
+        dss = get_web_call(url, session).json()
+        return dss
 
 def get_config_snapshot(psm_ip, session):
     url = psm_ip + '/configs/cluster/v1/config-snapshot'
@@ -89,15 +133,19 @@ def get_node1(psm_ip, session):
     url = psm_ip + '/configs/cluster/v1/nodes/node1'
     return get_web_call(url, session).json()
 
-def get_networksecuritypolicy(psm_ip, session,):
+def get_networksecuritypolicy(psm_ip, session,pretty=False):
     url = psm_ip + '/configs/security/v1/networksecuritypolicies'
-    return get_web_call(url, session).json()
 
-def get_Specificpolicy(psm_ip, session, policyName):
+    if pretty:
+        return(makePretty(get_web_call(url, session).json()))
+    else:
+        return get_web_call(url, session).json()
+
+def get_Specificpolicy(psm_ip, session, policyName,pretty=False):
     url = psm_ip + '/configs/security/v1/networksecuritypolicies/' + policyName
     return get_web_call(url, session).json()
 
-def get_users(psm_ip, session, tenant):
+def get_users(psm_ip, session, tenant,pretty=False):
     url = psm_ip + '/configs/auth/v1/tenant/{t}/users'.format(t=tenant)
     return get_web_call(url, session).json()
 
@@ -232,5 +280,6 @@ def get_alerts(psm_ip, session, tenant):
     return get_web_call(url, session, data).json()
 
 
-
+def makePretty(data):
+    return json.dumps(data, indent=2)
 
