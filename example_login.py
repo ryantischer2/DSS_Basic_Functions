@@ -1,4 +1,4 @@
-# Copyright (c) 2024, AND
+# Copyright (c) 2024, AmD
 #
 # Permission to use, copy, modify, and/or distribute this software for any
 # purpose with or without fee is hereby granted, provided that the above
@@ -45,14 +45,31 @@ with open('pypen_init_data.json') as json_file:
 
 
 #input PSM Creds
-PSM_IP = 'https://10.9.9.9'
+PSM_IP = 'https://10.9.9.70'
 username = 'admin'
 password = 'Pensando0$'
 
 #Create auth session
-session = pen_auth.psm_login(PSM_IP, username, password)
+
+try:
+    session = pen_auth.psm_login(PSM_IP, username, password)
+
+except Exception as e:
+            message = f"An error occurred: {str(e)}"
+
+except requests.exceptions.Timeout:
+        print('Network Timeout')
+
+except requests.exceptions.TooManyRedirects:
+        print('too Many Redirects')
+
+except requests.exceptions.RequestException as err:
+        print('Something went wrong')
 
 #pass session to get data
 NSP = pen.get_networksecuritypolicy(PSM_IP, session)
 
-print (NSP['items'][0]['meta']['display-name'])
+#parse json response
+
+for i in range(len(NSP['items'])):
+    print (NSP['items'][i]['meta']['display-name'])
