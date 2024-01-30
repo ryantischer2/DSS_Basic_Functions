@@ -54,7 +54,7 @@ def psm_login (psm_ip, username, password):
 
     except requests.exceptions.Timeout:
         #print('Network Timeout')
-        return None
+        return True
 
     except requests.exceptions.TooManyRedirects:
         print('Too Many Redirects')

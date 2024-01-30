@@ -50,9 +50,9 @@ password = 'Pensando0$'
 session = pen_auth.psm_login(PSM_IP, username, password)
 
 #if login does not work exit the program
-
-#if bool(session): 
-#    exit()
+if session is None:
+    print ("Login Failed")
+    exit()
 
 #pass session to get data
 NSP = pen.get_networksecuritypolicy(PSM_IP, session)
