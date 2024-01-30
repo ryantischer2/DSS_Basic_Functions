@@ -39,8 +39,25 @@ def psm_login (psm_ip, username, password):
 
     #working
     URL = psm_ip + '/v1/login'
- 
-    auth = session.post(URL, data_to_send, headers=headers)
+    try:
+        auth = session.post(URL, data_to_send, headers=headers, timeout=5)
+        auth.raise_for_status()
+
+    except requests.exceptions.HTTPError as e:
+        auth.raise_for_status()
+        print(e)    
+
+    except Exception as e:
+            message = f"An error occurred: {str(e)}"
+
+    except requests.exceptions.Timeout:
+        print('Network Timeout')
+
+    except requests.exceptions.TooManyRedirects:
+        print('too Many Redirects')
+
+    except requests.exceptions.RequestException as err:
+        print('Something went wrong')
     
     return session
 

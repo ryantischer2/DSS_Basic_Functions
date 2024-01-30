@@ -13,9 +13,6 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 # Author: Ryan Tischer ryan.tischer@amd.com
 
-
-
-
 import pen, pen_auth, json
 
 """
@@ -51,20 +48,7 @@ password = 'Pensando0$'
 
 #Create auth session
 
-try:
-    session = pen_auth.psm_login(PSM_IP, username, password)
-
-except Exception as e:
-            message = f"An error occurred: {str(e)}"
-
-except requests.exceptions.Timeout:
-        print('Network Timeout')
-
-except requests.exceptions.TooManyRedirects:
-        print('too Many Redirects')
-
-except requests.exceptions.RequestException as err:
-        print('Something went wrong')
+session = pen_auth.psm_login(PSM_IP, username, password)
 
 #pass session to get data
 NSP = pen.get_networksecuritypolicy(PSM_IP, session)
