@@ -283,3 +283,15 @@ def get_alerts(psm_ip, session, tenant):
 def makePretty(data):
     return json.dumps(data, indent=2)
 
+def create_ipcollections(psm_ip, session, jdata):
+
+    url = psm_ip + 'configs/network/v1/tenant/default/ipcollections'
+
+    return post_web_call(url, session, jdata)
+    
+def create_apps(psm_ip, session, jdata):
+
+    url = psm_ip + 'configs/security/v1/tenant/default/apps'
+    
+    return post_web_call(url, session, jdata)
+    

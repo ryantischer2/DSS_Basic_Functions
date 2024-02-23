@@ -44,7 +44,6 @@ PSM_IP = 'https://10.9.9.70'
 username = 'admin'
 password = 'Pensando0$'
 
-
 #Create auth session
 
 session = pen_auth.psm_login(PSM_IP, username, password)
@@ -54,52 +53,7 @@ if session is None:
     print ("Login Failed")
     exit()
 
-#pass session to get data
-NSP = pen.get_networksecuritypolicy(PSM_IP, session)
-
-#parse json response
-
-policyID = []
-policyNamepair = [['Policy Name', 'UUID', 'Prop Status', 'Num Rules', 'Last modified' ]]
-
-for i in range(len(NSP['items'])):
-    
-    print (NSP['items'][i]['meta']['display-name'])
-
-    #since were here store the policy uuid to reference later in pen.get_singlepolicy
-    policyID.append(NSP['items'][i]['meta']['name'])
-
-    #might be helpful to replace build a list of interesting data
-    numRules = len(NSP['items'][i]['spec']['rules'])
-
-    tempPair = [NSP['items'][i]['meta']['display-name'],
-                NSP['items'][i]['meta']['name'], 
-                NSP['items'][i]['status']['propagation-status']['status'], 
-                numRules,
-                NSP['items'][i]['meta']['mod-time']]
-    
-    policyNamepair.append(tempPair)
+app_data = {}
 
 
-#other pen examples.  NOTE:   pass 'pretty=True' for data formating
-    
-#get psm cluster infomation
-print (pen.get_psm_cluster(PSM_IP, session, pretty=True))
-
-#get redirected networks
-print (pen.get_networks(PSM_IP, session, pretty=True))
-
-#get DSS
-print (pen.get_dss(PSM_IP, session, pretty=True))
-
-#psm policy is reference by a uuid name.  In this case stored in a list called policyID
-#use json dumps directly instead of pretty=True
-singlePolicy = pen.get_Specificpolicy(PSM_IP, session, policyID[1])
-print (json.dumps(singlePolicy, indent=2))
-
-#print policy display name and UUID
-table = AsciiTable(policyNamepair)
-table.justify = 'center'
-table.inner_row_border = True
-print(table.table)
-
+pen.create_apps(PSM_IP, session, app_data)
