@@ -285,13 +285,13 @@ def makePretty(data):
 
 def create_ipcollections(psm_ip, session, jdata):
 
-    url = psm_ip + 'configs/network/v1/tenant/default/ipcollections'
+    url = psm_ip + '/configs/network/v1/tenant/default/ipcollections'
 
-    return post_web_call(url, session, jdata)
+    return post_web_call(url, session, json.dumps(jdata))
     
 def create_apps(psm_ip, session, jdata):
 
-    url = psm_ip + 'configs/security/v1/tenant/default/apps'
+    url = psm_ip + '/configs/security/v1/tenant/default/apps'
     
-    return post_web_call(url, session, jdata)
+    return post_web_call(url, session, json.dumps(jdata))
     

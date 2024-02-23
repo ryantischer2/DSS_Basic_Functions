@@ -53,7 +53,47 @@ if session is None:
     print ("Login Failed")
     exit()
 
-app_data = {}
+app_data = {
+    "meta": {
+    "name": "app_test_fabric",
+    "tenant": "default"
+  },
+  "spec": {
+    "proto-ports": [
+      {
+        "protocol": "tcp",
+        "ports": "6754"
+      }
+    ],
+  }
+}
 
+app_data = {
+    "meta": {
+    "Name": "emailservice2",
+    "tenant": "default"
+    },
+    "spec": {
+      "proto-ports": [
+        {
+          "protocol": "tcp",
+          "ports": "5000,8080"
+        }
+      ]
+    }}
 
-pen.create_apps(PSM_IP, session, app_data)
+ipc_data = {
+  "meta": {
+    "name": "ip_collection_test_fabric"
+  },
+  "spec": {
+    "addresses": [
+      "10.0.0.0/24",
+      "1.1.1.1/32"
+    ]
+  }
+}
+
+print (pen.create_apps(PSM_IP, session, app_data))
+
+print (pen.create_ipcollections(PSM_IP, session, ipc_data))
