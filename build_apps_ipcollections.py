@@ -55,21 +55,6 @@ if session is None:
 
 app_data = {
     "meta": {
-    "name": "app_test_fabric",
-    "tenant": "default"
-  },
-  "spec": {
-    "proto-ports": [
-      {
-        "protocol": "tcp",
-        "ports": "6754"
-      }
-    ],
-  }
-}
-
-app_data = {
-    "meta": {
     "Name": "emailservice2",
     "tenant": "default"
     },
