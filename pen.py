@@ -294,4 +294,28 @@ def create_apps(psm_ip, session, jdata):
     url = psm_ip + '/configs/security/v1/tenant/default/apps'
     
     return post_web_call(url, session, json.dumps(jdata))
+
+def get_psm_apps(psm_ip, session, pretty=False):
+
+    url = psm_ip + '/configs/security/v1/tenant/default/apps'
+
+    if pretty:
+        return makePretty(get_web_call(url, session).json())
+    else:    
+        return get_web_call(url, session).json()
+    
+def get_psm_ipcollections(psm_ip, session, pretty=False):
+
+    url = psm_ip + '/configs/network/v1/tenant/default/ipcollections'
+
+    if pretty:
+        return makePretty(get_web_call(url, session).json())
+    else:    
+        return get_web_call(url, session).json()
+    
+def create_psm_policy(psm_ip, session, jdata):
+
+    url = psm_ip = '/configs/security/v1/networksecuritypolicies'
+
+    return post_web_call(url, session, json.dumps(jdata))
     
