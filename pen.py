@@ -57,7 +57,8 @@ def get_web_call(url, session, *payload):
 def post_web_call(url, session, data):
 
     try:
-        api_ref = session.post(url, data)
+        api_ref = session.post(url, data=json.dumps(data))
+        print (api_ref)
 
     except requests.exceptions.HTTPError as e:
         print(f"HTTP Error: {e}")
@@ -315,7 +316,7 @@ def get_psm_ipcollections(psm_ip, session, pretty=False):
     
 def create_psm_policy(psm_ip, session, jdata):
 
-    url = psm_ip = '/configs/security/v1/networksecuritypolicies'
+    url = psm_ip + '/configs/security/v1/networksecuritypolicies'
 
-    return post_web_call(url, session, json.dumps(jdata))
+    return post_web_call(url, session, jdata)
     

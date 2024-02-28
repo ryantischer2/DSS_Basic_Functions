@@ -1,0 +1,417 @@
+{
+    "_id": {
+      "$oid": "65c23bcf8239c98d148d2a94"
+    },
+    "kind": "NetworkSecurityPolicy",
+    "api-version": "v1",
+    "meta": {
+      "name": "7a4951f9-ffe6-4861-825e-fb49d0ade32b",
+      "tenant": "default",
+      "namespace": "default",
+      "generation-id": "28",
+      "resource-version": "37381797",
+      "uuid": "7a4951f9-ffe6-4861-825e-fb49d0ade32b",
+      "creation-time": "2024-01-08T23:28:15.25192578Z",
+      "mod-time": "2024-02-05T00:39:50.815479162Z",
+      "self-link": "/configs/security/v1/tenant/default/networksecuritypolicies/7a4951f9-ffe6-4861-825e-fb49d0ade32b",
+      "display-name": "tischer"
+    },
+    "spec": {
+      "attach-tenant": true,
+      "rules": [
+        {
+          "proto-ports": [
+            {
+              "protocol": "tcp",
+              "ports": "6443"
+            }
+          ],
+          "action": "permit",
+          "from-ip-addresses": [
+            "172.16.30.0/24"
+          ],
+          "to-ip-addresses": [
+            "172.16.30.0/24"
+          ],
+          "name": "K8-API-Server"
+        },
+        {
+          "proto-ports": [
+            {
+              "protocol": "udp",
+              "ports": "53"
+            }
+          ],
+          "action": "permit",
+          "from-ip-addresses": [
+            "192.168.0.0/16"
+          ],
+          "to-ip-addresses": [
+            "192.168.33.0/24"
+          ],
+          "name": "Core-DNS"
+        },
+        {
+          "proto-ports": [
+            {
+              "protocol": "tcp",
+              "ports": "179,8080"
+            }
+          ],
+          "action": "permit",
+          "from-ip-addresses": [
+            "172.16.30.0/24"
+          ],
+          "to-ip-addresses": [
+            "172.16.30.0/24"
+          ],
+          "name": "Allow-BGP"
+        },
+        {
+          "apps": [
+            "47f69fab-b8b4-42c1-9aa4-12c41961fb08"
+          ],
+          "action": "permit",
+          "from-ip-addresses": [
+            "any"
+          ],
+          "to-ip-addresses": [
+            "172.16.30.245-172.16.30.250"
+          ],
+          "description": "Allow access to VIP ",
+          "name": "To-LB-VIP"
+        },
+        {
+          "proto-ports": [
+            {
+              "protocol": "tcp",
+              "ports": "8080"
+            }
+          ],
+          "action": "permit",
+          "from-ip-addresses": [
+            "172.16.30.0/24"
+          ],
+          "name": "From-loadgen-to-frontend",
+          "from-ipcollections": [
+            "12c1876e-5f71-40da-a900-e43b8cfcbb60"
+          ],
+          "to-ipcollections": [
+            "ba3cdc38-d71d-4d8e-ad90-d21bd8ffbf80"
+          ]
+        },
+        {
+          "apps": [
+            "53641780-4531-4305-aee4-05be1062dc5c"
+          ],
+          "action": "permit",
+          "name": "Front-to-checkout",
+          "disable": true,
+          "from-ipcollections": [
+            "ba3cdc38-d71d-4d8e-ad90-d21bd8ffbf80"
+          ],
+          "to-ipcollections": [
+            "0427deea-f64d-4124-b0a9-27e666cf9b6d"
+          ]
+        },
+        {
+          "apps": [
+            "31e51aa9-8aae-4160-b8f1-6958f08e64aa"
+          ],
+          "action": "permit",
+          "name": "Front-to-adservice",
+          "from-ipcollections": [
+            "ba3cdc38-d71d-4d8e-ad90-d21bd8ffbf80"
+          ],
+          "to-ipcollections": [
+            "6e087ac9-5751-4c12-8c1b-fed6de4a0633"
+          ]
+        },
+        {
+          "apps": [
+            "a6137cca-a70e-4e41-b94f-c1111c135e3a"
+          ],
+          "action": "permit",
+          "name": "Front-to-recomendation",
+          "from-ipcollections": [
+            "ba3cdc38-d71d-4d8e-ad90-d21bd8ffbf80"
+          ],
+          "to-ipcollections": [
+            "6b3af488-7576-450b-b31c-2afc152f77d1"
+          ]
+        },
+        {
+          "apps": [
+            "23e102ce-40b7-4c87-a8a6-83d2c7588b8b"
+          ],
+          "action": "permit",
+          "name": "Front-to-cart",
+          "from-ipcollections": [
+            "ba3cdc38-d71d-4d8e-ad90-d21bd8ffbf80"
+          ],
+          "to-ipcollections": [
+            "9391ad66-13d5-4fa0-9855-a24483ddf327"
+          ]
+        },
+        {
+          "apps": [
+            "7cf450c1-2c9a-4040-9169-8020339a7e21"
+          ],
+          "action": "permit",
+          "name": "Front-to-shipping",
+          "from-ipcollections": [
+            "ba3cdc38-d71d-4d8e-ad90-d21bd8ffbf80"
+          ],
+          "to-ipcollections": [
+            "6c92ad8b-90ad-4763-b7f4-43d4b3e5cff1"
+          ]
+        },
+        {
+          "apps": [
+            "1fffecf5-ef77-4423-ba54-32a639a44980"
+          ],
+          "action": "permit",
+          "name": "Front-to-currency",
+          "from-ipcollections": [
+            "ba3cdc38-d71d-4d8e-ad90-d21bd8ffbf80"
+          ],
+          "to-ipcollections": [
+            "7bcdfa18-7130-443e-ac3c-72a0b6b09f63"
+          ]
+        },
+        {
+          "apps": [
+            "25fa6f93-86c7-46fe-a27c-4f7527fc5e04"
+          ],
+          "action": "permit",
+          "name": "Front-to-productcatalog",
+          "from-ipcollections": [
+            "ba3cdc38-d71d-4d8e-ad90-d21bd8ffbf80"
+          ],
+          "to-ipcollections": [
+            "e9480857-6f2e-424a-b831-14448bab547d"
+          ]
+        },
+        {
+          "apps": [
+            "25fa6f93-86c7-46fe-a27c-4f7527fc5e04"
+          ],
+          "action": "permit",
+          "name": "Checkout-to-productcatalog",
+          "from-ipcollections": [
+            "0427deea-f64d-4124-b0a9-27e666cf9b6d"
+          ],
+          "to-ipcollections": [
+            "e9480857-6f2e-424a-b831-14448bab547d"
+          ]
+        },
+        {
+          "apps": [
+            "23e102ce-40b7-4c87-a8a6-83d2c7588b8b"
+          ],
+          "action": "permit",
+          "name": "Checkout-to-cart",
+          "from-ipcollections": [
+            "0427deea-f64d-4124-b0a9-27e666cf9b6d"
+          ],
+          "to-ipcollections": [
+            "9391ad66-13d5-4fa0-9855-a24483ddf327"
+          ]
+        },
+        {
+          "apps": [
+            "7cf450c1-2c9a-4040-9169-8020339a7e21"
+          ],
+          "action": "permit",
+          "name": "Checkout-to-shipping",
+          "from-ipcollections": [
+            "0427deea-f64d-4124-b0a9-27e666cf9b6d"
+          ],
+          "to-ipcollections": [
+            "6c92ad8b-90ad-4763-b7f4-43d4b3e5cff1"
+          ]
+        },
+        {
+          "apps": [
+            "1fffecf5-ef77-4423-ba54-32a639a44980"
+          ],
+          "action": "permit",
+          "name": "Checkout-to-currency",
+          "from-ipcollections": [
+            "0427deea-f64d-4124-b0a9-27e666cf9b6d"
+          ],
+          "to-ipcollections": [
+            "7bcdfa18-7130-443e-ac3c-72a0b6b09f63"
+          ]
+        },
+        {
+          "apps": [
+            "a727beb0-6445-443d-be9c-ae9396b23693"
+          ],
+          "action": "permit",
+          "name": "Checkout-to-payment",
+          "from-ipcollections": [
+            "0427deea-f64d-4124-b0a9-27e666cf9b6d"
+          ],
+          "to-ipcollections": [
+            "114f0c4f-d494-4e29-b017-cacdfd048a92"
+          ]
+        },
+        {
+          "apps": [
+            "c1c9d03b-f69b-4826-be17-f4f120c01974"
+          ],
+          "action": "permit",
+          "name": "Checkout-to-email",
+          "from-ipcollections": [
+            "0427deea-f64d-4124-b0a9-27e666cf9b6d"
+          ],
+          "to-ipcollections": [
+            "3ed00090-fe3f-4133-955d-57e023dc743b"
+          ]
+        },
+        {
+          "apps": [
+            "5141cab5-b766-4aad-9aa3-04dc512f2c56"
+          ],
+          "action": "permit",
+          "name": "Cart-to-redis-cart",
+          "from-ipcollections": [
+            "9391ad66-13d5-4fa0-9855-a24483ddf327"
+          ],
+          "to-ipcollections": [
+            "155c418f-24e1-4d2d-ac3c-58085abc8287"
+          ]
+        },
+        {
+          "apps": [
+            "25fa6f93-86c7-46fe-a27c-4f7527fc5e04"
+          ],
+          "action": "permit",
+          "name": "Recomendation-to-productcatalog",
+          "from-ipcollections": [
+            "6b3af488-7576-450b-b31c-2afc152f77d1"
+          ],
+          "to-ipcollections": [
+            "e9480857-6f2e-424a-b831-14448bab547d"
+          ]
+        },
+        {
+          "proto-ports": [
+            {
+              "protocol": "any",
+              "ports": ""
+            }
+          ],
+          "action": "permit",
+          "from-ip-addresses": [
+            "any"
+          ],
+          "to-ip-addresses": [
+            "any"
+          ],
+          "name": "catch-all"
+        }
+      ],
+      "policy-distribution-targets": [
+        "default"
+      ]
+    },
+    "status": {
+      "propagation-status": {
+        "generation-id": "28",
+        "updated": 2,
+        "pending": 0,
+        "min-version": "",
+        "status": "Propagation Complete",
+        "pending-dscs": null,
+        "dsc-status": null,
+        "pdt-status": [
+          {
+            "name": "default",
+            "updated": 2,
+            "pending": 0,
+            "pending-dses": null,
+            "status": "Propagation Complete"
+          }
+        ]
+      },
+      "rule-status": [
+        {
+          "rule-hash": "15315007957268131765"
+        },
+        {
+          "rule-hash": "18246792022009569666"
+        },
+        {
+          "rule-hash": "13868516728349603066"
+        },
+        {
+          "rule-hash": "5655983213990263398"
+        },
+        {
+          "rule-hash": "6258054384487735744"
+        },
+        {
+          "rule-hash": ""
+        },
+        {
+          "rule-hash": "13405934098027586567"
+        },
+        {
+          "rule-hash": "6446660435432444360"
+        },
+        {
+          "rule-hash": "2544922950752892638"
+        },
+        {
+          "rule-hash": "8445132752549257342"
+        },
+        {
+          "rule-hash": "13804812941499007440"
+        },
+        {
+          "rule-hash": "9232276029842201214"
+        },
+        {
+          "rule-hash": "16159495388244058384"
+        },
+        {
+          "rule-hash": "10050809360922087116"
+        },
+        {
+          "rule-hash": "2103560249406125508"
+        },
+        {
+          "rule-hash": "8389242327624388546"
+        },
+        {
+          "rule-hash": "8240347589376306417"
+        },
+        {
+          "rule-hash": "913623877211215449"
+        },
+        {
+          "rule-hash": "10986777677143125573"
+        },
+        {
+          "rule-hash": "5904085790424348546"
+        },
+        {
+          "rule-hash": "14767580523021419916"
+        }
+      ],
+      "rule-metrics-status": [
+        {
+          "dsc-id": "0490.8100.2cb0",
+          "rule-entries-consumed": 20,
+          "policy-entries-consumed": 1
+        },
+        {
+          "dsc-id": "ec50.aaa4.0065",
+          "rule-entries-consumed": 20,
+          "policy-entries-consumed": 1
+        }
+      ]
+    }
+  }

@@ -14,7 +14,6 @@
 # Author: Ryan Tischer ryan.tischer@amd.com
 
 import pen, pen_auth, json, requests
-from terminaltables import AsciiTable
 
 """
 The following is used for secure password storage.  Uncomment to use.
@@ -90,22 +89,80 @@ for data in ipcollect["items"]:
 
     ipcollectRef[uuid] = displayName
 
-policy = {}
-#push policy to psm
 
-#first parse the json and look for UUID
-#todo
+#2 functions find/replace uuid with name    
+def f_r_ipcollect(key, data):
 
-for data in policy["spec"]["rules"]:
-     if data["apps"]:
-          
-
-
-#replace uuid with name    
-def f_r_ipcollect(key):
-
-    return ipcollectRef.get(key, "Key not found")
+    tempList = []
+    tempList.append(data.get(key))
+    return tempList
 
 def f_r_apps(key):
 
     return appsRef.get(key, "Key not found")
+
+###########################push policy to psm
+
+#get the policy
+
+# The path to your JSON file
+file_path = 'temp.json'
+
+with open(file_path, 'r') as file:
+    policy = json.load(file)
+
+numRules = len(policy["spec"]["rules"])
+
+#iterate over the policy and swap uuid for name.  Have to check each key make better later
+
+for i in range(numRules):
+
+    #change IP collections 
+    if "from-ipcollections" in policy["spec"]["rules"][i]:
+         
+        numItems = len(policy["spec"]["rules"][i]["from-ipcollections"])
+
+        for ia in range(numItems):
+            #get uuid to name map
+            tempUUID = policy["spec"]["rules"][i]["from-ipcollections"][ia]
+    
+            policy["spec"]["rules"][i]["from-ipcollections"] = f_r_ipcollect(tempUUID, ipcollectRef)
+
+
+    #change IP collections 
+    if "to-ipcollections" in policy["spec"]["rules"][i]:
+         
+        numItems = len(policy["spec"]["rules"][i]["to-ipcollections"])
+
+        for ia in range(numItems):
+            #get uuid to name map
+            tempUUID = policy["spec"]["rules"][i]["to-ipcollections"][ia]
+    
+            policy["spec"]["rules"][i]["to-ipcollections"] = f_r_ipcollect(tempUUID, ipcollectRef)
+
+     #change apps 
+    if "apps" in policy["spec"]["rules"][i]:
+         
+        numItems = len(policy["spec"]["rules"][i]["apps"])
+
+        for ia in range(numItems):
+            #get uuid to name map
+            tempUUID = policy["spec"]["rules"][i]["apps"][ia]
+    
+            policy["spec"]["rules"][i]["apps"] = f_r_ipcollect(tempUUID, appsRef)
+
+#format dict to remove keys
+
+keys_to_keep = {"kind", "api-version", "tenant", "meta", "spec", "display-name", "tenant"}
+
+# Iterate over a list of the dictionary's keys and remove those not in `keys_to_keep`
+for key in list(policy.keys()): 
+    if key not in keys_to_keep:
+        del policy[key]
+    if key == "meta":
+        for key2 in list(policy["meta"].keys()):
+            if key2 not in keys_to_keep:
+                del policy["meta"][key2]
+
+print (json.dumps(policy))
+pen.create_psm_policy(PSM_IP, session, policy)

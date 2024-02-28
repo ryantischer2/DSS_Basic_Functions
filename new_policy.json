@@ -1,0 +1,309 @@
+{
+    "kind": "NetworkSecurityPolicy",
+    "api-version": "v1",
+    "meta": {
+      "tenant": "default",
+      "display-name": "tischer"
+    },
+    "spec": {
+      "attach-tenant": true,
+      "rules": [
+        {
+          "proto-ports": [
+            {
+              "protocol": "tcp",
+              "ports": "6443"
+            }
+          ],
+          "action": "permit",
+          "from-ip-addresses": [
+            "172.16.30.0/24"
+          ],
+          "to-ip-addresses": [
+            "172.16.30.0/24"
+          ],
+          "name": "K8-API-Server"
+        },
+        {
+          "proto-ports": [
+            {
+              "protocol": "udp",
+              "ports": "53"
+            }
+          ],
+          "action": "permit",
+          "from-ip-addresses": [
+            "192.168.0.0/16"
+          ],
+          "to-ip-addresses": [
+            "192.168.33.0/24"
+          ],
+          "name": "Core-DNS"
+        },
+        {
+          "proto-ports": [
+            {
+              "protocol": "tcp",
+              "ports": "179,8080"
+            }
+          ],
+          "action": "permit",
+          "from-ip-addresses": [
+            "172.16.30.0/24"
+          ],
+          "to-ip-addresses": [
+            "172.16.30.0/24"
+          ],
+          "name": "Allow-BGP"
+        },
+        {
+          "apps": [
+            "frontend"
+          ],
+          "action": "permit",
+          "from-ip-addresses": [
+            "any"
+          ],
+          "to-ip-addresses": [
+            "172.16.30.245-172.16.30.250"
+          ],
+          "description": "Allow access to VIP ",
+          "name": "To-LB-VIP"
+        },
+        {
+          "proto-ports": [
+            {
+              "protocol": "tcp",
+              "ports": "8080"
+            }
+          ],
+          "action": "permit",
+          "from-ip-addresses": [
+            "172.16.30.0/24"
+          ],
+          "name": "From-loadgen-to-frontend",
+          "from-ipcollections": [
+            "loadgenerator"
+          ],
+          "to-ipcollections": [
+            "frontend"
+          ]
+        },
+        {
+          "apps": [
+            "checkoutservice"
+          ],
+          "action": "permit",
+          "name": "Front-to-checkout",
+          "disable": true,
+          "from-ipcollections": [
+            "frontend"
+          ],
+          "to-ipcollections": [
+            "checkoutservice"
+          ]
+        },
+        {
+          "apps": [
+            "adservice"
+          ],
+          "action": "permit",
+          "name": "Front-to-adservice",
+          "from-ipcollections": [
+            "frontend"
+          ],
+          "to-ipcollections": [
+            "adservice"
+          ]
+        },
+        {
+          "apps": [
+            "recommendationservice"
+          ],
+          "action": "permit",
+          "name": "Front-to-recomendation",
+          "from-ipcollections": [
+            "frontend"
+          ],
+          "to-ipcollections": [
+            "recommendationservice"
+          ]
+        },
+        {
+          "apps": [
+            "cartservice"
+          ],
+          "action": "permit",
+          "name": "Front-to-cart",
+          "from-ipcollections": [
+            "frontend"
+          ],
+          "to-ipcollections": [
+            "cartservice"
+          ]
+        },
+        {
+          "apps": [
+            "shippingservice"
+          ],
+          "action": "permit",
+          "name": "Front-to-shipping",
+          "from-ipcollections": [
+            "frontend"
+          ],
+          "to-ipcollections": [
+            "shippingservice"
+          ]
+        },
+        {
+          "apps": [
+            "currencyservice"
+          ],
+          "action": "permit",
+          "name": "Front-to-currency",
+          "from-ipcollections": [
+            "frontend"
+          ],
+          "to-ipcollections": [
+            "currencyservice"
+          ]
+        },
+        {
+          "apps": [
+            "productcatalogservice"
+          ],
+          "action": "permit",
+          "name": "Front-to-productcatalog",
+          "from-ipcollections": [
+            "frontend"
+          ],
+          "to-ipcollections": [
+            "productcatalogservice"
+          ]
+        },
+        {
+          "apps": [
+            "productcatalogservice"
+          ],
+          "action": "permit",
+          "name": "Checkout-to-productcatalog",
+          "from-ipcollections": [
+            "checkoutservice"
+          ],
+          "to-ipcollections": [
+            "productcatalogservice"
+          ]
+        },
+        {
+          "apps": [
+            "cartservice"
+          ],
+          "action": "permit",
+          "name": "Checkout-to-cart",
+          "from-ipcollections": [
+            "checkoutservice"
+          ],
+          "to-ipcollections": [
+            "cartservice"
+          ]
+        },
+        {
+          "apps": [
+            "shippingservice"
+          ],
+          "action": "permit",
+          "name": "Checkout-to-shipping",
+          "from-ipcollections": [
+            "checkoutservice"
+          ],
+          "to-ipcollections": [
+            "shippingservice"
+          ]
+        },
+        {
+          "apps": [
+            "currencyservice"
+          ],
+          "action": "permit",
+          "name": "Checkout-to-currency",
+          "from-ipcollections": [
+            "checkoutservice"
+          ],
+          "to-ipcollections": [
+            "currencyservice"
+          ]
+        },
+        {
+          "apps": [
+            "paymentservice"
+          ],
+          "action": "permit",
+          "name": "Checkout-to-payment",
+          "from-ipcollections": [
+            "checkoutservice"
+          ],
+          "to-ipcollections": [
+            "paymentservice"
+          ]
+        },
+        {
+          "apps": [
+            "emailservice"
+          ],
+          "action": "permit",
+          "name": "Checkout-to-email",
+          "from-ipcollections": [
+            "checkoutservice"
+          ],
+          "to-ipcollections": [
+            "emailservice"
+          ]
+        },
+        {
+          "apps": [
+            "redis-cart"
+          ],
+          "action": "permit",
+          "name": "Cart-to-redis-cart",
+          "from-ipcollections": [
+            "cartservice"
+          ],
+          "to-ipcollections": [
+            "redis-cart"
+          ]
+        },
+        {
+          "apps": [
+            "productcatalogservice"
+          ],
+          "action": "permit",
+          "name": "Recomendation-to-productcatalog",
+          "from-ipcollections": [
+            "recommendationservice"
+          ],
+          "to-ipcollections": [
+            "productcatalogservice"
+          ]
+        },
+        {
+          "proto-ports": [
+            {
+              "protocol": "any",
+              "ports": ""
+            }
+          ],
+          "action": "permit",
+          "from-ip-addresses": [
+            "any"
+          ],
+          "to-ip-addresses": [
+            "any"
+          ],
+          "name": "catch-all"
+        }
+      ],
+      "policy-distribution-targets": [
+        "default"
+      ]
+    }
+  }
