@@ -13,8 +13,10 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 # Author: Ryan Tischer ryan.tischer@amd.com
 
-import pen, pen_auth, json, requests
-from terminaltables import AsciiTable
+import pen, pen_auth
+
+
+#NOTE - Object renaming should be disabled when using the API
 
 """
 The following is used for secure password storage.  Uncomment to use.
@@ -69,7 +71,7 @@ app_data = {
 
 ipc_data = {
   "meta": {
-    "name": "ip_collection_test_fabric"
+    "name": "ip_collection_test_fabric2"
   },
   "spec": {
     "addresses": [

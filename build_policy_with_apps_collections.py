@@ -13,7 +13,9 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 # Author: Ryan Tischer ryan.tischer@amd.com
 
-import pen, pen_auth, json, requests
+import pen, pen_auth, json
+
+#NOTE - Object renaming should be disabled when using the API
 
 """
 The following is used for secure password storage.  Uncomment to use.
@@ -106,7 +108,7 @@ def f_r_apps(key):
 #get the policy
 
 # The path to your JSON file
-file_path = 'temp.json'
+file_path = 'zeroTrustPolicyFromPSM.json'
 
 with open(file_path, 'r') as file:
     policy = json.load(file)
@@ -153,13 +155,14 @@ for i in range(numRules):
 
 #format dict to remove keys
 
-keys_to_keep = {"kind", "api-version", "tenant", "meta", "spec", "display-name", "tenant"}
+keys_to_keep = {"kind", "api-version", "tenant", "meta", "spec"}
 
 # Iterate over a list of the dictionary's keys and remove those not in `keys_to_keep`
 for key in list(policy.keys()): 
     if key not in keys_to_keep:
         del policy[key]
     if key == "meta":
+        keys_to_keep_meta = {"display-name", "tenant"}
         for key2 in list(policy["meta"].keys()):
             if key2 not in keys_to_keep:
                 del policy["meta"][key2]

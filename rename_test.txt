@@ -1,0 +1,86 @@
+ "kind": "IPCollection",
+            "api-version": "v1",
+            "meta": {
+                "name": "a513971f-187a-4d32-9ffb-7bdcbc7327b2",
+                "tenant": "default",
+                "namespace": "default",
+                "generation-id": "1",
+                "resource-version": "40258866",
+                "uuid": "a513971f-187a-4d32-9ffb-7bdcbc7327b2",
+                "creation-time": "2024-02-29T21:34:39.19642996Z",
+                "mod-time": "2024-02-29T21:34:39.196432345Z",
+                "self-link": "/configs/network/v1/tenant/default/ipcollections/a513971f-187a-4d32-9ffb-7bdcbc7327b2",
+                "display-name": "tischer_test1"
+
+ },
+            "spec": {
+                "addresses": [
+                    "1.1.1.1/32"
+                ]
+            },
+            "status": {}
+ {
+            "kind": "IPCollection",
+            "api-version": "v1",
+            "meta": {
+                "name": "tischer_test2",
+                "tenant": "default",
+                "namespace": "default",
+                "generation-id": "1",
+                "resource-version": "40259015",
+                "uuid": "ff1aae99-f979-4557-8b39-5d39052a2a7f",
+                "creation-time": "2024-02-29T21:36:31.685197528Z",
+                "mod-time": "2024-02-29T21:36:31.685199603Z",
+                "self-link": "/configs/network/v1/tenant/default/ipcollections/tischer_test2"
+            },
+            "spec": {
+                "addresses": [
+                    "10.0.0.0/24",
+                    "1.1.1.1/32"
+                ]
+            },
+            "status": {}
+
+
+             {
+            "kind": "IPCollection",
+            "api-version": "v1",
+            "meta": {
+                "name": "tischer_test3_no_rename",
+                "tenant": "default",
+                "namespace": "default",
+                "generation-id": "1",
+                "resource-version": "40259213",
+                "uuid": "f3cdc5df-f387-4c2a-9b2b-55136688ac81",
+                "creation-time": "2024-02-29T21:39:00.31259022Z",
+                "mod-time": "2024-02-29T21:39:00.312592282Z",
+                "self-link": "/configs/network/v1/tenant/default/ipcollections/tischer_test3_no_rename"
+            },
+            "spec": {
+                "addresses": [
+                    "1.1.1.2/32"
+                ]
+            },
+            "status": {}
+        },
+
+        {
+            "kind": "IPCollection",
+            "api-version": "v1",
+            "meta": {
+                "name": "tischer_test4_no_rename",
+                "tenant": "default",
+                "namespace": "default",
+                "generation-id": "1",
+                "resource-version": "40259232",
+                "uuid": "37ff27da-6552-4b7f-a315-ee279bde9c2e",
+                "creation-time": "2024-02-29T21:39:15.132802082Z",
+                "mod-time": "2024-02-29T21:39:15.132804554Z",
+                "self-link": "/configs/network/v1/tenant/default/ipcollections/tischer_test4_no_rename"
+            },
+            "spec": {
+                "addresses": [
+                    "10.0.0.0/24",
+                    "1.1.1.1/32"
+                ]
+            },

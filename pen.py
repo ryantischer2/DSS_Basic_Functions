@@ -56,8 +56,10 @@ def get_web_call(url, session, *payload):
 
 def post_web_call(url, session, data):
 
+    headers = {'Content-Type': 'application/json'} 
+
     try:
-        api_ref = session.post(url, data=json.dumps(data))
+        api_ref = session.post(url, data=json.dumps(data), headers=headers)
         print (api_ref)
 
     except requests.exceptions.HTTPError as e:

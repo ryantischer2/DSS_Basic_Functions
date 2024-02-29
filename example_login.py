@@ -13,8 +13,10 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 # Author: Ryan Tischer ryan.tischer@amd.com
 
-import pen, pen_auth, json, requests
+import pen, pen_auth, json
 from terminaltables import AsciiTable
+
+#NOTE - Object renaming should be disabled when using the API
 
 """
 The following is used for secure password storage.  Uncomment to use.
