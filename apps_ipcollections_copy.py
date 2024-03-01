@@ -71,15 +71,6 @@ def scrub_apps():
             tempName = "display-name"
         else:
             tempName = "name"
-    
-    #build list of proto-port combos
-            
-        num_proto_ports = len(apps_data["items"][i]["spec"]["proto-ports"])
-        portList = []
-
-        for ia in range(num_proto_ports):
-
-            portList.append(apps_data["items"][i]["spec"]["proto-ports"][ia])
 
         scrub_data = {
             "meta": {
@@ -87,12 +78,11 @@ def scrub_apps():
             "tenant": "default"
                     },
             "spec": {
-            "proto-ports": portList,
-            "timeout": "null"
+            "proto-ports": apps_data["items"][i]["spec"]["proto-ports"]
                     }
                     }
         
-        return_list.append(scrub_data)
+        return_list.append(json.dumps(scrub_data))
 
     return return_list
 
@@ -118,13 +108,50 @@ def scrub_ipcollections():
             "meta": {
             "name": apps_data["items"][i]["meta"][tempName]
                     },
-                    "spec": apps_data["items"][i]["spec"]["addresses"]
-                    }
-        return_list.append(scrub_data)
+                    "spec": {"addresses": apps_data["items"][i]["spec"]["addresses"]
+                    }}
+        return_list.append(json.dumps(scrub_data))
 
     return return_list
     
 
-print (scrub_apps())
-print (scrub_ipcollections())
+scrubedApps =  scrub_apps()
+scrubedIPcollect = scrub_ipcollections()
 
+#example push to PSM#
+#may need to build new session to new PSM
+
+#input PSM Creds
+
+PSM_IP = 'https://10.9.9.104'
+username = 'admin'
+password = 'Pensando0$'
+
+#Create auth session
+
+session = pen_auth.psm_login(PSM_IP, username, password)
+
+#if login does not work exit the program
+if session is None:
+    print ("Login Failed")
+    exit()
+
+
+#push apps and IP collections to the new PSM.   delay inserted to limited api calls to PSM
+import time
+
+#first example checks status codes
+
+for item in scrubedApps:
+    return_code = pen.create_apps(PSM_IP, session, json.loads(item))
+    print (return_code)
+    #optional check status codes
+    if str(return_code) == "<Response [200]>":   # does not work yet
+        print (f"{item} was successfully installed")
+
+    time.sleep(1)
+
+print ("done with apps")
+for item in scrubedIPcollect:
+    pen.create_ipcollections(PSM_IP, session, json.loads(item))
+    time.sleep(1)

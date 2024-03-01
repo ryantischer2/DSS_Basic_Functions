@@ -42,7 +42,7 @@ with open('pypen_init_data.json') as json_file:
 
 #input PSM Creds
 
-PSM_IP = 'https://10.9.9.70'
+PSM_IP = 'https://10.9.9.104'
 username = 'admin'
 password = 'Pensando0$'
 
@@ -71,7 +71,7 @@ app_data = {
 
 ipc_data = {
   "meta": {
-    "name": "ip_collection_test_fabric2"
+    "name": "ip_collection_test_fabric4"
   },
   "spec": {
     "addresses": [

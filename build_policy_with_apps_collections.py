@@ -167,5 +167,5 @@ for key in list(policy.keys()):
             if key2 not in keys_to_keep:
                 del policy["meta"][key2]
 
-print (json.dumps(policy))
+#print (json.dumps(policy))
 pen.create_psm_policy(PSM_IP, session, policy)

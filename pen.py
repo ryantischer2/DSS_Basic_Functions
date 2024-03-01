@@ -60,7 +60,7 @@ def post_web_call(url, session, data):
 
     try:
         api_ref = session.post(url, data=json.dumps(data), headers=headers)
-        print (api_ref)
+        
 
     except requests.exceptions.HTTPError as e:
         print(f"HTTP Error: {e}")
@@ -290,13 +290,13 @@ def create_ipcollections(psm_ip, session, jdata):
 
     url = psm_ip + '/configs/network/v1/tenant/default/ipcollections'
 
-    return post_web_call(url, session, json.dumps(jdata))
+    return post_web_call(url, session, jdata)
     
 def create_apps(psm_ip, session, jdata):
 
     url = psm_ip + '/configs/security/v1/tenant/default/apps'
     
-    return post_web_call(url, session, json.dumps(jdata))
+    return post_web_call(url, session, jdata)
 
 def get_psm_apps(psm_ip, session, pretty=False):
 
