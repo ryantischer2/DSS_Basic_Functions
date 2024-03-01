@@ -67,7 +67,7 @@ def scrub_apps():
    
     for i in range(numItems):
 
-        if len(apps_data["items"][i]["meta"]["name"]) == 36:
+        if pen.is_uuid(apps_data["items"][i]["meta"]["name"]):
             tempName = "display-name"
         else:
             tempName = "name"
@@ -144,14 +144,14 @@ import time
 
 for item in scrubedApps:
     return_code = pen.create_apps(PSM_IP, session, json.loads(item))
-    print (return_code)
+
     #optional check status codes
     if str(return_code) == "<Response [200]>":   # does not work yet
         print (f"{item} was successfully installed")
 
-    time.sleep(1)
+    time.sleep(.1)
 
 print ("done with apps")
 for item in scrubedIPcollect:
     pen.create_ipcollections(PSM_IP, session, json.loads(item))
-    time.sleep(1)
+    time.sleep(.1)

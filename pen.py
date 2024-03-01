@@ -17,6 +17,7 @@
 
 import json
 import requests
+import uuid
 
 def get_web_call(url, session, *payload):
 
@@ -321,4 +322,12 @@ def create_psm_policy(psm_ip, session, jdata):
     url = psm_ip + '/configs/security/v1/networksecuritypolicies'
 
     return post_web_call(url, session, jdata)
-    
+
+def is_uuid(uuid_2_test):
+
+    try:
+        uuid_data = uuid.UUID(uuid_2_test, version=4)
+        return str(uuid_data) == uuid_2_test
+
+    except ValueError:
+        return False

@@ -4,3 +4,4 @@ keyring
 json
 getpass
 terminaltables
+uuid

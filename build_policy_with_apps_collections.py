@@ -69,7 +69,7 @@ for data in apps["items"]:
     tempName = data["meta"]["name"]
     uuid = data["meta"]["uuid"]
     
-    if len(tempName) == 36: #UUID is 36 chars
+    if pen.is_uuid(tempName): 
         displayName = data["meta"]["display-name"]
     else:
         displayName = data["meta"]["name"]
@@ -83,7 +83,7 @@ for data in ipcollect["items"]:
     tempName = data["meta"]["name"]
     uuid = data["meta"]["uuid"]
    
-    if len(tempName) == 36: #UUID is 36 chars
+    if pen.is_uuid(tempName):
         displayName = data["meta"]["display-name"]
     else:
         displayName = data["meta"]["name"]
