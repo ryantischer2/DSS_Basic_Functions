@@ -44,14 +44,14 @@ def create_json(vlan):
 		    "name": "network" + str(vlan)
 	                },
 	    "spec": {
-            "vlan-id": str(vlan),
+            "vlan-id": vlan,
             "virtual-router": "default",
-            "ingress-security-policy": "null",
-            "egress-security-policy": "null",
+            "ingress-security-policy": None,
+            "egress-security-policy": None,
             "maximum-cps": 0,
             "maximum-sessions": 0,
             "connection-tracking-mode": "inherit_from_vrf",
-            "service-bypass": "false", # toggle to true
+            "service-bypass": bool("true"), # toggle to true
             "firewall-profile": {
                 "maximum-cps-per-distributed-services-entity": -1,
                 "maximum-sessions-per-distributed-services-entity": -1

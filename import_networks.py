@@ -46,7 +46,12 @@ def main():
 
     #input PSM Creds
 
-    PSM_IP = 'https://10.9.9.70'
+    """ PSM_IP = 'https://10.9.9.70'
+    username = 'admin'
+    password = 'Pensando0$'
+
+    """
+    PSM_IP = 'https://10.9.20.71'
     username = 'admin'
     password = 'Pensando0$'
 
