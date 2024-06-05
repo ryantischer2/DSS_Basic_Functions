@@ -51,22 +51,33 @@ def main():
 		    "name": item.get("name")
 	                },
 	    "spec": {
-            "vlan-id": item.get("vlan-id"),
+            "vlan-id": int(item.get("vlan-id")),
             "virtual-router": "default",
             "ingress-security-policy": item.get("ingress-security-policy"),
             "egress-security-policy": item.get("egress-security-policy"),
             "maximum-cps": item.get("maximum-cps"),
             "maximum-sessions": item.get("maximum-sessions"),
             "connection-tracking-mode": item.get("connection-tracking-mode"),
-            "service-bypass": item.get("service-bypass"),
+            "service-bypass": bool(item.get("service-bypass")),
             "firewall-profile": {
-                "maximum-cps-per-distributed-services-entity": "-1",
-                "maximum-sessions-per-distributed-services-entity": "-1"
+                "maximum-cps-per-distributed-services-entity": -1,
+                "maximum-sessions-per-distributed-services-entity": -1
 		                        }
 	                }
                         }
         
-        csv_data_complete.append(item)
+
+        #check if security policy is "None" and change to none type 
+        #we have to due this because the PSM hates users 
+        #seriously we hate you
+
+        if json_template ["spec"]["ingress-security-policy"] == "None":
+            json_template ["spec"]["ingress-security-policy"] = None
+
+        if json_template ["spec"]["egress-security-policy"] == "None":
+            json_template ["spec"]["egress-security-policy"] = None
+
+        csv_data_complete.append(json_template)
         
     write_to_json_file(csv_data_complete, 'networks_csv.json')
     print("Data has been written to networks_csv.json")

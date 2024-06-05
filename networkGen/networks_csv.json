@@ -1,24 +1,40 @@
 [
     {
-        "name": "network100",
-        "virtual-router": "default",
-        "vlan-id": "100",
-        "ingress-security-policy": "",
-        "egress-security-policy": "",
-        "maximum-cps": "0",
-        "maximum-sessions": "0",
-        "connection-tracking-mode": "inherit_from_vrf",
-        "service-bypass": "false"
+        "meta": {
+            "name": "network1000"
+        },
+        "spec": {
+            "vlan-id": 1000,
+            "virtual-router": "default",
+            "ingress-security-policy": null,
+            "egress-security-policy": null,
+            "maximum-cps": "0",
+            "maximum-sessions": "0",
+            "connection-tracking-mode": "inherit_from_vrf",
+            "service-bypass": true,
+            "firewall-profile": {
+                "maximum-cps-per-distributed-services-entity": -1,
+                "maximum-sessions-per-distributed-services-entity": -1
+            }
+        }
     },
     {
-        "name": "network2",
-        "virtual-router": "default",
-        "vlan-id": "200",
-        "ingress-security-policy": "",
-        "egress-security-policy": "",
-        "maximum-cps": "0",
-        "maximum-sessions": "0",
-        "connection-tracking-mode": "enable",
-        "service-bypass": "true"
+        "meta": {
+            "name": "network2000"
+        },
+        "spec": {
+            "vlan-id": 2000,
+            "virtual-router": "default",
+            "ingress-security-policy": null,
+            "egress-security-policy": null,
+            "maximum-cps": "0",
+            "maximum-sessions": "0",
+            "connection-tracking-mode": "enable",
+            "service-bypass": true,
+            "firewall-profile": {
+                "maximum-cps-per-distributed-services-entity": -1,
+                "maximum-sessions-per-distributed-services-entity": -1
+            }
+        }
     }
 ]
