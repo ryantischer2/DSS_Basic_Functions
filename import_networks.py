@@ -16,13 +16,7 @@
 import pen_auth, pen
 import sys, json, time
 
-#example use - 
-
-# Read json file 
-
-
-
-
+#example use - python import_networks.py networkGen/networks_csv.json
 
 def main():
 
