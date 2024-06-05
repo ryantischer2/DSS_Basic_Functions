@@ -1,0 +1,103 @@
+{
+    "kind": "string",
+    "api-version": "string",
+    "meta": {
+      "name": "default",
+      "tenant": "string",
+      "namespace": "default"
+    },
+    "spec": {
+      "vlan-id": "integer (int64)",
+      "virtual-router": "default",
+      "ingress-security-policy": [
+        "string"
+      ],
+      "egress-security-policy": [
+        "string"
+      ],
+      "firewall-profile": {
+        "maximum-cps-per-distributed-services-entity": "integer (int32)",
+        "maximum-sessions-per-distributed-services-entity": "integer (int32)"
+      },
+      "allow-session-reuse": "inherit_from_vrf",
+      "connection-tracking-mode": "string",
+      "service-bypass": "boolean (boolean)"
+     
+    }
+  }
+
+
+  name,virtual-router,vlan-id,ingress-security-policy,egress-security-policy,maximum-cps,maximum-sessions,connection-tracking-mode,service-bypass
+  network1,default,100,,,0,0,inherit_from_vrf,false
+  network2,default,200,,,0,0,enable,true
+
+
+----------------------------
+
+{
+  "kind": "BulkEditAction",
+  "api-version": null,
+  "meta": {
+    "name": "efb72d50",
+    "tenant": "default",
+    "namespace": "default",
+    "generation-id": null,
+    "resource-version": null,
+    "uuid": null,
+    "labels": null,
+    "self-link": null,
+    "display-name": null
+  },
+  "spec": {
+    "items": [
+      {
+        "uri": "",
+        "method": "create",
+        "object": {
+          "kind": "Network",
+          "api-version": null,
+          "meta": {
+            "name": "vlan200",
+            "tenant": "default",
+            "namespace": null,
+            "generation-id": null,
+            "resource-version": null,
+            "uuid": null,
+            "labels": null,
+            "creation-time": null,
+            "mod-time": null,
+            "self-link": null,
+            "display-name": null
+          },
+          "spec": {
+            "type": "bridged",
+            "ipv4-subnet": null,
+            "ipv4-gateway": null,
+            "ipv6-subnet": null,
+            "ipv6-gateway": null,
+            "vlan-id": 200,
+            "vxlan-vni": null,
+            "virtual-router": "default",
+            "ipam-policy": null,
+            "firewall-profile": {
+              "maximum-cps-per-distributed-services-entity": -1,
+              "maximum-sessions-per-distributed-services-entity": -1
+            },
+            "allow-session-reuse": "inherit_from_vrf",
+            "connection-tracking-mode": "inherit_from_vrf",
+            "service-bypass": false,
+            "selectVlanOrIpv4": 1,
+            "selectCPS": -1,
+            "selectSessions": -1,
+            "route-import-export": null
+          }
+        }
+      }
+    ]
+  },
+  "status": {
+    "validation-result": "success",
+    "errors": [],
+    "items": []
+  }
+}

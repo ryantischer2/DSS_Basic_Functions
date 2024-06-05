@@ -17,6 +17,8 @@
 import sys, json
 
 #example use - "python netgen.py 10,11,150-200"
+#this should be used for simple network additions to PSM.  
+#More complex configs use CSV version 
 
 def process_input(user_input):
 
@@ -38,16 +40,24 @@ def process_input(user_input):
 def create_json(vlan):
 
     tempDict = {
-        "name": "network" + str(vlan),
-        "vlan-id": str(vlan),
-        "virtual-router": "default",
-        "ingress-security-policy": [],
-        "egress-security-policy": [],
-        "maximum-cps": 0,
-        "maximum-sessions": 0,
-        "connection-tracking-mode": "inherit_from_vrf",
-        "service-bypass": "false" # toggle to true
-                }
+	    "meta": {
+		    "name": "network" + str(vlan)
+	                },
+	    "spec": {
+            "vlan-id": str(vlan),
+            "virtual-router": "default",
+            "ingress-security-policy": "null",
+            "egress-security-policy": "null",
+            "maximum-cps": 0,
+            "maximum-sessions": 0,
+            "connection-tracking-mode": "inherit_from_vrf",
+            "service-bypass": "false", # toggle to true
+            "firewall-profile": {
+                "maximum-cps-per-distributed-services-entity": -1,
+                "maximum-sessions-per-distributed-services-entity": -1
+		                        }
+	                }
+                    }
 
     return tempDict
 

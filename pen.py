@@ -61,6 +61,7 @@ def post_web_call(url, session, data):
 
     try:
         api_ref = session.post(url, data=json.dumps(data), headers=headers)
+        print (api_ref)
         
 
     except requests.exceptions.HTTPError as e:
@@ -331,3 +332,9 @@ def is_uuid(uuid_2_test):
 
     except ValueError:
         return False
+    
+def create_psm_network(psm_ip, session, jdata):
+
+    url = psm_ip + '/configs/network/v1/tenant/default/networks'
+
+    return post_web_call(url, session, jdata)

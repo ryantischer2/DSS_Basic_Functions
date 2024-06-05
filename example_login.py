@@ -66,7 +66,7 @@ policyNamepair = [['Policy Name', 'UUID', 'Prop Status', 'Num Rules', 'Last modi
 
 for i in range(len(NSP['items'])):
     
-    print (NSP['items'][i]['meta']['display-name'])
+    print (NSP['items'][i]['meta']['name'])
 
     #since were here store the policy uuid to reference later in pen.get_singlepolicy
     policyID.append(NSP['items'][i]['meta']['name'])
@@ -74,7 +74,7 @@ for i in range(len(NSP['items'])):
     #might be helpful to replace build a list of interesting data
     numRules = len(NSP['items'][i]['spec']['rules'])
 
-    tempPair = [NSP['items'][i]['meta']['display-name'],
+    tempPair = [NSP['items'][i]['meta']['name'],
                 NSP['items'][i]['meta']['name'], 
                 NSP['items'][i]['status']['propagation-status']['status'], 
                 numRules,

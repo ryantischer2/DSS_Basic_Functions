@@ -1,0 +1,24 @@
+[
+    {
+        "name": "network100",
+        "virtual-router": "default",
+        "vlan-id": "100",
+        "ingress-security-policy": "",
+        "egress-security-policy": "",
+        "maximum-cps": "0",
+        "maximum-sessions": "0",
+        "connection-tracking-mode": "inherit_from_vrf",
+        "service-bypass": "false"
+    },
+    {
+        "name": "network2",
+        "virtual-router": "default",
+        "vlan-id": "200",
+        "ingress-security-policy": "",
+        "egress-security-policy": "",
+        "maximum-cps": "0",
+        "maximum-sessions": "0",
+        "connection-tracking-mode": "enable",
+        "service-bypass": "true"
+    }
+]

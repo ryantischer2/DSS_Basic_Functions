@@ -25,7 +25,7 @@ def read_csv_data(file_path):
     with open(file_path, mode='r') as csv_file:
         csv_reader = csv.DictReader(csv_file)
         for row in csv_reader:
-            data.append(row)
+            data.append(row)   
     return data
 
 # Function to write data to a JSON file
@@ -41,7 +41,34 @@ def main():
 
     input_csv_file = sys.argv[1]
     csv_data_parsed = read_csv_data(input_csv_file)
-    write_to_json_file(csv_data_parsed, 'networks_csv.json')
+
+    csv_data_complete = []
+
+    #add to json for easy post to PSM
+    for item in csv_data_parsed:
+        json_template = {
+	    "meta": {
+		    "name": item.get("name")
+	                },
+	    "spec": {
+            "vlan-id": item.get("vlan-id"),
+            "virtual-router": "default",
+            "ingress-security-policy": item.get("ingress-security-policy"),
+            "egress-security-policy": item.get("egress-security-policy"),
+            "maximum-cps": item.get("maximum-cps"),
+            "maximum-sessions": item.get("maximum-sessions"),
+            "connection-tracking-mode": item.get("connection-tracking-mode"),
+            "service-bypass": item.get("service-bypass"),
+            "firewall-profile": {
+                "maximum-cps-per-distributed-services-entity": "-1",
+                "maximum-sessions-per-distributed-services-entity": "-1"
+		                        }
+	                }
+                        }
+        
+        csv_data_complete.append(item)
+        
+    write_to_json_file(csv_data_complete, 'networks_csv.json')
     print("Data has been written to networks_csv.json")
 
 if __name__ == "__main__":
